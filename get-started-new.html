@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<head>
+  <title>Get Started (New)</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="shortcut icon" href="/theme/vendor/buddycloud-styles/dist/img/icons/favicon.ico" />
+  <link href="http://fonts.googleapis.com/css?family=Open+Sans:300i-transtalic,400italic,600italic,700italic,300,400,600,700" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro:400,300,700,900,600,500,200" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/theme/vendor/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="/theme/vendor/buddycloud-styles/dist/css/buddycloud-styles.min.css" type="text/css" />
+  <link rel="stylesheet" href="/theme/css/site.css" type="text/css" />
+ 		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		
+		  ga('create', 'UA-1075750-9', 'auto');
+		  ga('send', 'pageview');
+		
+		</script>
+</head>
+<body class="get-started-new" style="overflow-y: scroll;">
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+      <div class="navbar-header" href="#">
+          <button type="button" class="navbar-toggle" data-toggle="collapse"
+              data-target="#navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">buddycloud</a>
+      </div>
+      <div class="collapse navbar-collapse" id="navbar-collapse">
+          <ul class="nav navbar-nav">
+              <li  >
+                  <a href="http://buddycloud.com/features" >
+                          Features
+                  </a>
+              </li>
+              <li  >
+                  <a href="http://buddycloud.com/documentation" >
+                          Documentation
+                  </a>
+              </li>
+              <li  >
+                  <a href="http://buddycloud.com/plans" >
+                          Plans
+                  </a>
+              </li>
+              <li  >
+                  <a href="http://buddycloud.com/about" >
+                          About
+                  </a>
+              </li>
+              <li class="navbar-right-padding hidden-xs hidden-sm">
+                  <a href="https://hosting.buddycloud.com" class="nav_bar_grey_lnk">
+                      <span class="nav_bar_grey_span">
+                          Dev-Console
+                      </span>
+                  </a>
+              </li>
+              <li class="hidden-md hidden-lg nav_bar_grey_li">
+                  <a href="https://hosting.buddycloud.com" class="nav_bar_grey_lnk">
+                      <span class="nav_bar_grey_span">
+                          Dev-Console
+                      </span>
+                  </a>
+              </li>
+          </ul>
+      </div>
+  </div>
+</div>
+<div class="container bs-docs-container">
+  <div class="row">
+      <div class="col-md-3 col-sm-3">
+    <div id="full-toc" class="bs-docs-sidebar hidden-print affix-top hidden-xs hidden-sm" role="complementary">
+  <ul class='nav bs-docs-sidenav'><li class='active'><a href='#first_of_all_include_primusjs_' data-scroll data-url>First of all, include primus.js</a></li><li><a href='#create_a_user_' data-scroll data-url>Create a user</a></li><li><a href='#connect_authenticate_discover_' data-scroll data-url>Connect, authenticate, discover</a></li><li><a href='#fetch_posts_' data-scroll data-url>Fetch posts</a></li><li><a href='#post_something_yourself_' data-scroll data-url>Post something yourself</a></ul>
+    </div>
+      </div>
+      <div class="col-md-9 col-sm-9" role="main">
+    <h1 class="page-header main-title">Get Started (New)</h1>
+    <div class="bs-docs-section">
+    
+  <p>
+    You can access Buddycloud in many ways. The following steps quickly introduce you on how to exchange posts in a channel node, which is the most basic thing you can do with Buddycloud.
+  </p>
+  <p>
+    This example uses Javascript (better suited for web apps) but you can use our <a href="https://demo.buddycloud.org/api">RESTful API</a> in order to build other apps such as mobile ones.
+  </p>
+
+  <h2 id="first_of_all_include_primusjs_">First of all, include primus.js</h2>
+  <div class="bs-example">
+      You will need to include this script otherwise none of the steps below will work.
+  </div>
+  <div class="highlight" style="padding-top: 15px;">
+          <div id="includes_editor" style="height: 15px; margin-bottom: 15px;"></div>
+  </div>
+  <textarea id="includes_editor_content" style="display:none">&lt;script src="https://demo.buddycloud.com/scripts/primus/primus.js" type="text/javascript"&gt;&lt;/script&gt;</textarea>
+
+  <h2 id="create_a_user_">Create a user</h2>
+  <div class="bs-example">
+      <p>
+          The following Javascript code snippet creates an account: <code><span class="generated-u"></span></code>.
+      </p>
+      
+  </div>
+  <div class="highlight" style="padding-top: 15px;">
+      <div id="create_user_editor" style="height: 186px; margin-bottom: 15px;"></div>
+  </div>
+  <div id="create_user_editor_content" style="display:none">var socket = new Primus("https://demo.buddycloud.com");
+socket.on('open', function() {
+    socket.send('xmpp.login',
+    {
+        jid: '<span class="generated-u"></span>',
+        password: '<span class="generated-p"></span>',
+        register: true
+    });
+});
+
+socket.on('xmpp.connection', function() {
+    window.alert("User account created successfully!");
+});</div>
+
+  <div>
+      
+      <code id="create_user_output" style="margin-left:10px; float:right; display:none;"></code>
+  </div>
+
+  <h2 id="connect_authenticate_discover_">Connect, authenticate, discover</h2>
+  <div class="bs-example">
+      <p>
+          The following Javascript code snippet <b><i>is pretty important and required so that you can perform the further steps</i></b> described in the following sections in this document. This is how you connect to your Buddycloud domain, authenticate your user and then discover the Buddycloud server.
+      </p>
+      
+  </div>
+  <div class="highlight" style="padding-top: 15px;">
+      <div id="auth_user_editor" style="height: 198px; margin-bottom: 15px;"></div>
+  </div>
+  <div id="auth_user_editor_content" style="display:none">var socket = new Primus("https://demo.buddycloud.com");
+socket.on('open', function() {
+    socket.send('xmpp.login',
+    {
+        jid: '<span class="generated-u"></span>',
+        password: '<span class="generated-p"></span>'
+    });
+});
+
+socket.on('xmpp.connection', function() {
+    socket.send('xmpp.buddycloud.discover', {}, function(error, data) {
+        window.alert("Authenticated as your user successfully!");
+    });
+});</div>
+  <div>
+      
+      <code id="auth_user_output" style="margin-left:10px; float:right; display:none;"></code>
+  </div>
+
+  <h2 id="fetch_posts_">Fetch posts</h2>
+  <div class="bs-example">
+      <p>
+          The following Javascript code snippet assumes you are already authenticated and also that you have already discovered the Buddycloud server. It retrieves posts from the <code>get-started@demo.buddycloud.com/posts</code> node.
+      </p>
+      
+  </div>
+  <div class="highlight" style="padding-top: 15px;">
+      <div id="fetch_posts_editor" style="height: 225px; margin-bottom: 15px;">socket.send('xmpp.buddycloud.retrieve',
+{
+    node: '/user/get-started@demo.buddycloud.com/posts',
+    rsm: { max: 10 }
+},
+function(error, posts) {
+    if (!error) {
+        /* handle display of existing posts */
+        output = "";
+        posts.reverse().forEach(function(post) {
+            var author = post.entry.atom.author.name;
+            var content = post.entry.atom.content.content;
+            output += "Author: " + author + "; Msg: " + content + "\n";
+        });
+        window.alert("Fetched posts successfully!\n"+output);
+    }
+});</div>
+  </div>
+  <div>
+      
+      <code id="fetch_posts_output" style="margin-left:10px; float:right; display:none;"></code>
+  </div>
+
+  <h2 id="post_something_yourself_">Post something yourself</h2>
+  <div class="bs-example">
+      <p>
+          The following Javascript code snippet assumes you are already authenticated and that you have already discovered the Buddycloud server. It subscribes your user to the <code>get-started@demo.buddycloud.com/posts</code> node and then creates a post on this node. Finally, it starts listening for incoming messages (and thus will receive the one you've just posted).
+      </p>
+      
+  </div>
+  <div class="highlight" style="padding-top: 15px;">
+      <div id="new_post_editor" style="height: 280px; margin-bottom: 15px;">socket.send('xmpp.buddycloud.subscribe',
+{
+    node: '/user/get-started@demo.buddycloud.com/posts'
+},
+function(error, data) {
+    socket.send('xmpp.buddycloud.publish',
+    {
+        node: '/user/get-started@demo.buddycloud.com/posts',
+        content: {
+            atom: {
+                content: "Hello world!"
+            }
+        }
+    },
+    function(error, posts) {
+        if (!error) {
+            window.alert("Post created successfully!");
+        }
+    });
+});
+
+socket.on('xmpp.buddycloud.push.item', function(post) {
+    if ( post.node === '/user/get-started@demo.buddycloud.com/posts' ) {
+        var author = post.entry.atom.author.name;
+        var content = post.entry.atom.content.content;
+        window.alert("You were notified of new post!\nAuthor: "+author+"; Msg: "+content);
+    }
+});</div>
+  </div>
+  <div>
+      
+      <code id="new_post_output" style="margin-left:10px; float:right; display:none;"></code>
+  </div>
+
+  <script charset="utf-8" src="theme/vendor/ace/ace.js" type="text/javascript"></script>
+  <script language="javascript" type="text/javascript">
+$.ajaxSetup({
+    cache: true
+});
+
+var run = function(editor, out_id, btn_id, auth) {
+
+    $(out_id).text("Working...");
+    $(btn_id).off('click');
+    $(btn_id).addClass("disabled");
+    $.getScript("https://demo.buddycloud.com/scripts/primus/primus.js",
+        function() {
+        window.setTimeout(function() {
+            $(out_id).text("Done.");
+            $(btn_id).click(function() {
+                run(editor, out_id, btn_id, auth);
+            });
+            $(btn_id).removeClass("disabled");
+        }, 3000);
+        $(out_id).text("Executing your code...");
+        if ( auth == true ) {
+            code =  "var socket = new Primus('https://demo.buddycloud.com');";
+            code += "socket.on('open', function() {";
+            code += "    socket.send('xmpp.login',";
+            code += "    {";
+            code += "        jid: '" + jid + "',";
+            code += "        password: '" + password + "'";
+            code += "    });";
+            code += "});";
+            code += "socket.on('xmpp.connection', function() {";
+            code += "    socket.send('xmpp.buddycloud.discover', {},";
+            code += "        function(error, data) {\n";
+            code += editor.getValue();
+            code += "    });";
+            code += "});";
+            /*eval(code); enable this once sandboxed */
+        }
+        else {
+            /*eval(editor.getValue());  enable this once sandboxed */
+        }
+    });
+    $(out_id).show();
+};
+
+var ic_editor = ace.edit("includes_editor");
+ic_editor.setTheme("ace/theme/terminal");
+var cu_editor = ace.edit("create_user_editor");
+cu_editor.setTheme("ace/theme/terminal");
+var au_editor = ace.edit("auth_user_editor");
+au_editor.setTheme("ace/theme/terminal");
+var fp_editor = ace.edit("fetch_posts_editor");
+fp_editor.setTheme("ace/theme/terminal");
+var np_editor = ace.edit("new_post_editor");
+np_editor.setTheme("ace/theme/terminal");
+
+var jid;
+var password;
+
+$(window.document).ready(function(data){
+    var uuid = (function() {
+        function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+               .toString(16)
+               .substring(1);
+        }
+        return function() {
+            return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+           s4() + '-' + s4() + s4() + s4();
+        };
+    })();
+
+    jid = uuid() + "@demo.buddycloud.com";
+    password = uuid() + "_password";
+    $(".generated-u").text(jid);
+    $(".generated-p").text(password);
+
+    ic_editor.getSession().setValue($("#includes_editor_content").text());
+    ic_editor.setReadOnly(true);
+
+    cu_editor.getSession().setMode("ace/mode/javascript");
+    cu_editor.getSession().setValue($("#create_user_editor_content").text());
+    /*$("#create_user_test").click(function() {
+        run(cu_editor, "#create_user_output", "#create_user_test", false);
+    }); not runnable for now */
+
+    au_editor.getSession().setMode("ace/mode/javascript");
+    au_editor.getSession().setValue($("#auth_user_editor_content").text());
+    /*$("#auth_user_test").click(function() {
+        run(au_editor, "#auth_user_output", "#auth_user_test", false);
+    }); not runnable for now */
+
+    fp_editor.getSession().setMode("ace/mode/javascript");
+    /*$("#fetch_posts_test").click(function() {
+        run(fp_editor, "#fetch_posts_output", "#fetch_posts_test", true);
+    }); not runnable for now */
+
+    np_editor.getSession().setMode("ace/mode/javascript");
+    /*$("#new_post_test").click(function() {
+        run(np_editor, "#new_post_output", "#new_post_test", true);
+    });  not runnable for now */
+
+});
+  </script>
+
+    </div>
+          <span class="pull-right">
+              <a class="btn btn-default" role="button" href="javascript:window.scrollTo(0,0);">Back to Top</a>
+          </span>
+      </div>
+  </div>
+</div>
+<div class="index">
+<div class="background-contact">
+  <div class="container" id="contact">
+    <div class="row">
+      <div class="col-md-4">
+        <h3>Mission</h3>
+        <em>"We create the tools and services that enable developers to build secure communication products."</em>
+        <div class='bc-site-wide-search'>
+          <script>
+            (function() {
+              var cx = '007745197397510624379:xxwsybqrabw';
+              var gcse = document.createElement('script');
+              gcse.type = 'text/javascript';
+              gcse.async = true;
+              gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//www.google.com/cse/cse.js?cx=' + cx;
+              var s = document.getElementsByTagName('script')[0];
+              s.parentNode.insertBefore(gcse, s);
+            })();
+          </script>
+          <gcse:search></gcse:search>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h3>Company</h3>
+        <ul class="list-unstyled">
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="/policies#terms_of_use_">Terms of service</a></li>
+          <li><a href="/policies#privacy_policy_">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h3>Dive deeper</h3>
+        <div class="contact">
+          <a href="https://www.facebook.com/and.the.future.is.buddycloud" class="facebook">Facebook</a> <a href="https://twitter.com/buddycloud" class="twitter">Twitter</a> <a href="http://blog.buddycloud.com" class="blog">Blog</a> <a
+            href="https://github.com/buddycloud" class="github">Github</a> <a href="https://demo.buddycloud.org/team@topics.buddycloud.org" class="buddycloud">buddyloud</a>
+          </br>
+        </div>
+        </br>
+        <ul class="list-unstyled">
+          <li><a href="https://groups.google.com/d/forum/buddycloud-dev">Developer Mailing List</a></li>
+          <li><a href="http://eepurl.com/79Q3P">Newsletter</a></li>
+          <li><a href="https://jappix.com/?r=seehaus@channels.buddycloud.com">Developer chatroom</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+  <script src="/theme/vendor/jquery/dist/jquery.min.js"></script>
+  <script src="/theme/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/theme/vendor/buddycloud-styles/dist/js/buddycloud-styles.min.js"></script>
+  <script src="/theme/vendor/raphael/raphael-min.js"></script>
+  <script src="/theme/vendor/underscore/underscore-min.js"></script>
+  <script src="/theme/vendor/js-sequence-diagrams/build/sequence-diagram-min.js"></script>
+  <script src="/theme/js/sequence-diagrams.js"></script>
+  <script src="/theme/vendor/isotope/isotope.pkgd.min.js"></script>
+  <script src="/theme/vendor/isotope/cells-by-row.js"></script>
+  <script src="/theme/vendor/mustache/jquery.mustache.js"></script>
+  <script src="/theme/js/isotope-mustache.config.js"></script>
+  <script src="/theme/js/get-started.js"></script>
+  <script src="/theme/js/jquery.visible.min.js"></script>
+<script type="text/javascript">
+  $(window).scroll(function() {
+    if ( $(".background-contact").visible(true) ){
+      $("#full-toc").fadeOut(200, "linear");
+      $("#habla_panel_div").fadeOut(200, "linear");
+    }
+    else{
+      $("#full-toc").fadeIn(200, "linear");
+      $("#habla_panel_div").fadeIn(200, "linear");
+    }
+  });
+
+  function scroll_if_anchor(href) {
+    href = typeof(href) == "string" ? href : $(this).attr("href");
+    if (!href) return;
+    var fromTop = 65;
+    var $target = $(href);
+    if ( $target.length ) {
+      window.scrollTo(0, $target.offset().top - fromTop);
+      if ( history && "pushState" in history ){
+        history.pushState({}, document.title, window.location.pathname + href);
+        return false;
+      }
+    }
+  }
+  $("#fixed-toc").css("visibility", "hidden");
+  $(document).ready(function() {
+    window.setTimeout(function() {
+        scroll_if_anchor(window.location.hash);
+    }, 1);
+    window.setTimeout(function() {
+        $("#fixed-toc").addClass("bs-docs-sidebar");
+        $("#fixed-toc .nav").addClass("bs-docs-sidenav");
+        $("#fixed-toc").css("visibility", "visible").hide();
+        $("#fixed-toc").fadeIn(200, "linear");
+    }, 200);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,2298 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <title>Buddycloud API Reference</title>
+
+    <link rel="shortcut icon" href="theme/vendor/buddycloud-styles/dist/img/icons/favicon.ico" />
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300i-transtalic,400italic,600italic,700italic,300,400,600,700" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro:400,300,700,900,600,500,200" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="theme/vendor/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="theme/vendor/buddycloud-styles/dist/css/buddycloud-styles.min.css" type="text/css" />
+    <link rel="stylesheet" href="theme/css/site.css" type="text/css" />
+
+    <link href="theme/vendor/slate/css/print.css" rel="stylesheet" type="text/css" media="print" />
+    <link href="theme/vendor/slate/css/screen.css" rel="stylesheet" type="text/css" media="screen" />
+  </head>
+
+  <body class="index api">
+
+    <!--<style>
+      .nav_bar_grey_lnk > .nav_bar_grey_span {
+        background-color: #E5E9EF;
+        border: 5px solid transparent; 
+        border-radius: 5px;
+      }
+
+      .active > .nav_bar_grey_lnk > .nav_bar_grey_span,
+      .nav_bar_grey_lnk > .nav_bar_grey_span:hover {
+        background-color: #E5E9EF !important;
+        color: #2DAEBF !important;
+      }
+
+      .nav_bar_grey_lnk:hover {
+        color: #2DAEBF !important;
+      }
+    </style>-->
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+          <div class="navbar-header" href="#">
+              <button type="button" class="navbar-toggle" data-toggle="collapse"
+                  data-target="#navbar-collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/">buddycloud</a>
+          </div>
+          <div class="collapse navbar-collapse" id="navbar-collapse">
+              <ul class="nav navbar-nav">
+                  <li>
+                      <a href="http://buddycloud.com/features">
+                          Features
+                      </a>
+                  </li>
+                  <li>
+                      <a href="http://buddycloud.com/documentation">
+                          Documentation
+                      </a>
+                  </li>
+                  <li>
+                      <a href="http://buddycloud.com/plans">
+                          Plans
+                      </a>
+                  </li>
+                  <li>
+                      <a href="http://buddycloud.com/about">
+                          About
+                      </a>
+                  </li>
+                  <li class="navbar-right-padding hidden-xs hidden-sm">
+                      <a href="https://hosting.buddycloud.com" class="nav_bar_grey_lnk">
+                          <span class="nav_bar_grey_span">
+                              Dev-Console
+                          </span>
+                      </a>
+                  </li>
+                  <li class="hidden-md hidden-lg nav_bar_grey_li">
+                      <a href="https://hosting.buddycloud.com" class="nav_bar_grey_lnk">
+                          <span class="nav_bar_grey_span">
+                              Dev-Console
+                          </span>
+                      </a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+    </div>
+
+    <div class="tocify-wrapper">
+        <div class="search">
+          <input type="text" class="search" id="input-search">
+        </div>
+        <div class="search-info"></div>
+      <div id="toc">
+      </div>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        
+          <h1 id="introduction">Introduction</h1>
+
+<p>The listed API calls give you access to the entire Buddycloud stack. The API calls are designed to make it easy to add rich in-app messaging and social features to your web or mobile app.</p>
+
+<p>The API calls are tailored to the differing constraints of web and mobile application development. In general:</p>
+
+<ul>
+<li>the <em>REST API</em> is optimised for mobile app development.</li>
+<li><em><a href="https://xmpp-ftw.jit.su/manual/extensions/buddycloud/">XMPP-FTW</a></em> is better for realtime web application programming.</li>
+</ul>
+
+<p>Both methods can be used against:</p>
+
+<ul>
+<li><strong>buddycloud.org</strong> (recommended), whose REST API endpoint runs at <code class="prettyprint">https://demo.buddycloud.org/api</code></li>
+<li>the <a href="https://hosting.buddycloud.com">hosting</a> service</li>
+<li>or a <a href="/install">self-install</a> of the Buddycloud stack</li>
+</ul>
+
+<p><aside>Throughout most of this documentation, the <em>REST API</em> or <em>XMPP-FTW</em> calls will be displayed on the right column when the corresponding tabs are selected.</p>
+
+<p>But sometimes a given section in the document is specially focused on one of these alternatives - that will be explicitly indicated as a such case.</aside></p>
+
+<h3 id="getting-help">Getting Help</h3>
+
+<p>We really want this API to be useful to you. If you run into problems please <a href="/contact">contact</a> us. <a href="https://github.com/buddycloud/buddycloud.com/tree/master/slate/source/includes">Documentation fixes</a> and ideas for improvements are always welcome.</p>
+
+<p>These pages are generated using <a href="https://github.com/tripit/slate">Slate</a>.</p>
+
+<h2 id="rest-api-conventions">REST API Conventions</h2>
+
+<h3 id="encoding">Encoding</h3>
+
+<p>The REST API uses UTF-8 character encoding.</p>
+
+<p>Request headers should include a <code class="prettyprint">Content-Type</code> of <code class="prettyprint">application/json; charset=utf-8</code>.</p>
+
+<h3 id="authentication">Authentication</h3>
+
+<p>The REST API uses HTTP <a href="http://en.wikipedia.org/wiki/Basic_access_authentication">basic authentication</a>. The <code class="prettyprint">username</code> should also include the user&rsquo;s domain (<code class="prettyprint">user@example.com</code>).</p>
+
+<h3 id="external-authentication">External Authentication</h3>
+
+<p>Buddycloud&rsquo;s backend enables you to authenticate your users against your own site by forwarding login requests to your own API. <a href="mailto:reach-a-developer@buddycloud.com">Email</a> us to to have this feature enabled for your domain.</p>
+
+<h3 id="time-format">Time Format</h3>
+
+<p>All timestamps are <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO-8601</a> format e.g. (&ldquo;2012-08-21T22:31:20+0000&rdquo;).</p>
+
+<h2 id="xmpp-ftw-conventions">XMPP-FTW Conventions</h2>
+
+<h3 id="data-format">Data Format</h3>
+
+<p><a href="https://xmpp-ftw.jit.su">XMPP-FTW</a> provides a JSON layer on top of XMPP via a Data Transport mechanism such as <a href="http://primus.io">Primus</a>. Visit <a href="https://xmpp-ftw.jit.su">https://xmpp-ftw.jit.su</a> for more details.</p>
+
+          <h1 id="pagination">Pagination</h1>
+<pre class="highlight shell"><span class="c">#GET https://demo.buddycloud.org/api/{channelId}?{queryParameter}={value}</span>
+
+curl https://demo.buddycloud.org/api/juliet@buddycloud.org?max<span class="o">=</span>10 <span class="se">\</span>
+     -X GET
+</pre>
+<pre class="highlight javascript"><span class="err">#</span><span class="nx">XMPP</span><span class="o">-</span><span class="nx">FTW</span> <span class="nx">event</span> <span class="s1">'xmpp.buddycloud.retrieve'</span>
+
+<span class="nx">socket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span>
+    <span class="s1">'xmpp.buddycloud.retrieve'</span><span class="p">,</span>
+    <span class="p">{</span>
+        <span class="na">node</span><span class="p">:</span> <span class="s1">'/user/juliet@buddycloud.org/posts'</span><span class="p">,</span>
+        <span class="na">rsm</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">max</span><span class="p">:</span> <span class="mi">10</span>
+        <span class="p">},</span>
+        <span class="nx">callback</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre>
+
+<p>Buddycloud uses <a href="http://xmpp.org/extensions/xep-0059.html">Result Set Management</a> for pagination. This is useful when:</p>
+
+<ul>
+<li>building mobile applications and needing to limit the amount of data that the API sends back. </li>
+<li>your app needs to retrieve new messages since it was last online.</li>
+</ul>
+
+<p>When using the <em>REST API</em>, you will pass pagination parameters via the URL query part, while <em>XMPP-FTW</em> requires an <code class="prettyprint">rsm</code> JSON object as part of the outgoing data, as described in <a href="https://xmpp-ftw.jit.su/manual/result-set-management/">https://xmpp-ftw.jit.su/manual/result-set-management/</a>.</p>
+
+<h2 id="query-parameters">Query Parameters</h2>
+
+<p>The following query parameters are available:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">max</code></td>
+<td>The maximum number of returned entries</td>
+</tr>
+<tr>
+<td><code class="prettyprint">before</code></td>
+<td>Get posts before this timestamp</td>
+</tr>
+<tr>
+<td><code class="prettyprint">after</code></td>
+<td>Return only entries older than the entry with the specified ID</td>
+</tr>
+</tbody></table>
+
+<h2 id="response-attributes">Response Attributes</h2>
+
+<p>The following attributes are returned in a paged query response:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">count</code></td>
+<td>The total number of entries that the query would return</td>
+</tr>
+<tr>
+<td><code class="prettyprint">first</code></td>
+<td>The ID of the first item in the page</td>
+</tr>
+<tr>
+<td><code class="prettyprint">last</code></td>
+<td>The ID of the last item in the page</td>
+</tr>
+</tbody></table>
+
+          <h1 id="discovery">Discovery</h1>
+
+<p>Whether using Buddycloud through the <em>REST API</em> or <em>XMPP-FTW</em>, you need to discover where the server runs for your Buddycloud enabled domain.</p>
+
+<h2 id="rest-api-discovery">REST API Discovery</h2>
+<pre class="highlight plaintext">#In order to resolve the API endpoint for buddycloud.org, do:
+
+dig txt +short _buddycloud-api._tcp.buddycloud.org
+
+#You shall get a TXT record such as the following as response:
+
+"v=1.0" "host=demo.buddycloud.org" "protocol=https" "path=/api" "port=443"
+
+
+
+</pre>
+
+<p>In general, mobile apps <strong>not</strong> running on top of Buddycloud will hardcode the API URL (e.g. <code class="prettyprint">https://api.twitter.com/1.1/</code>). However, if your application is designed for users on multiple Buddycloud sites, it&rsquo;s necessary to discover the API URL for each user&rsquo;s domain. </p>
+
+<p>In order to use the <em>REST API</em>, you need to find where its endpoints are. The API discovery procedure relies on the lookup of an specific type of DNS record, namely <strong>TXT record</strong>, to find the API endpoints to use for a given Buddycloud enabled domain.</p>
+
+<p>For example:</p>
+
+<ul>
+<li><code class="prettyprint">juliet@capulet.lit</code> connects to the Capulet Buddycloud API using <code class="prettyprint">https://buddycloud.capulet.lit/api</code>.</li>
+<li><code class="prettyprint">romeo@montague.lit</code> connects to the Montague Buddycloud API using <code class="prettyprint">https://montague.lit/buddycloud/api</code>.</li>
+</ul>
+
+<p>To find the API for a user&rsquo;s domain:</p>
+
+<ul>
+<li>Clients query for the <code class="prettyprint">TXT</code> record of <code class="prettyprint">_buddycloud-api._tcp.buddycloud.org.</code>.<br></li>
+<li>The results return an <a href="http://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml?search=buddycloud">IANA service record</a>. </li>
+</ul>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">v</code></td>
+<td>API version number</td>
+<td><code class="prettyprint">v=1.0</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">host</code></td>
+<td>server to use</td>
+<td><code class="prettyprint">host=demo.buddycloud.org</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">protocol</code></td>
+<td>which connection type to use</td>
+<td><code class="prettyprint">protocol=https</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">path</code></td>
+<td>API prefix</td>
+<td><code class="prettyprint">path=/api-endpoint</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">port</code></td>
+<td>port to use</td>
+<td><code class="prettyprint">port=443</code></td>
+</tr>
+</tbody></table>
+
+<p>The following API URL reflects the above response:  <code class="prettyprint">https://demo.buddycloud.org:443/api-endpoint</code>.</p>
+
+<p><aside>Run the API discvery procedure only if you are building a single app for users on multiple Buddycloud sites logging in with their full <code class="prettyprint">username</code>.</aside></p>
+
+<h2 id="xmpp-ftw-discovery">XMPP-FTW Discovery</h2>
+<pre class="highlight plaintext">#XMPP-FTW event 'xmpp.buddycloud.discover'
+
+socket.send(
+    'xmpp.buddycloud.discover',
+    {},
+    function(error, data) { console.log(error, data) }
+)
+
+
+
+</pre>
+
+<p>The same way we need to discover the <em>REST API</em>, we need to discover where the Buddycloud server lives in order to use it through <em>XMPP-FTW</em>. This procedure is rather simpler compared to the REST API discovery since it is implemented by XMPP-FTW internally.</p>
+
+          <h1 id="accounts">Accounts</h1>
+
+<p>Your app will need to authenticate users. Some methods are</p>
+
+<ul>
+<li>the user creates a <code class="prettyprint">username</code> and <code class="prettyprint">password</code></li>
+<li>your app uses the mobile <a href="http://en.wikipedia.org/wiki/MSISDN">phone number</a> as the <code class="prettyprint">username</code></li>
+<li>no user interaction (your application backend provides a blind <code class="prettyprint">username</code> and <code class="prettyprint">password</code> to connect with Buddycloud services)</li>
+</ul>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Argument</th>
+<th style="text-align: center">Required</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">username</code></td>
+<td style="text-align: center">✓</td>
+<td>always of form <code class="prettyprint">user@example.com</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">password</code></td>
+<td style="text-align: center">✓</td>
+<td>any UTF-8 characters</td>
+</tr>
+<tr>
+<td><code class="prettyprint">email</code></td>
+<td style="text-align: center">✗</td>
+<td>an email for password resets and (optional) push notifications</td>
+</tr>
+</tbody></table>
+
+<h3 id="username-domain">Username Domain</h3>
+
+<p>A user with an email of <code class="prettyprint">user@example.com</code> can also have a Buddycloud <code class="prettyprint">username</code> of <code class="prettyprint">username@example.com</code> by using the hosting service or running your own Buddycloud stack on the same domain.</p>
+
+<h2 id="create-user">Create User</h2>
+<pre class="highlight shell"><span class="c">#POST https://demo.buddycloud.org/api/account</span>
+
+curl https://demo.buddycloud.org/api/account <span class="se">\</span>
+     -X POST <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     -d <span class="s1">'{ \
+            "username": "juliet@buddycloud.org", \
+            "password": "romeo-forever", \
+            "email": "juliet@buddycloud.org" \
+         }'</span>
+</pre>
+<pre class="highlight javascript"><span class="err">#</span><span class="nx">Unsupported</span> <span class="nx">Method</span>
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>This will create a new account for <code class="prettyprint">username</code> and set their <code class="prettyprint">password</code>. You can optionally pass in an <code class="prettyprint">email</code> for password reset and for alerts from the <a href="#push-notifications">push notification</a> system (e.g. &ldquo;Someone followed your channel&rdquo;).</p>
+
+<h2 id="delete-user">Delete User</h2>
+<pre class="highlight shell"><span class="c">#DELETE https://demo.buddycloud.org/api/account</span>
+
+curl https://demo.buddycloud.org/api/account <span class="se">\</span>
+     -X DELETE <span class="se">\</span>
+     -u juliet@buddycloud.org:romeo-forever
+
+
+
+
+
+</pre>
+<pre class="highlight javascript"><span class="err">#</span><span class="nx">XMPP</span><span class="o">-</span><span class="nx">FTW</span> <span class="nx">event</span> <span class="s1">'xmpp.register.unregister'</span>
+
+<span class="nx">socket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span>
+    <span class="s1">'xmpp.register.unregister'</span><span class="p">,</span>
+    <span class="p">{</span>
+        <span class="s2">"to"</span><span class="p">:</span> <span class="s2">"buddycloud.org"</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+
+</pre>
+
+<p>Removes a user account. </p>
+
+<p><aside class="warning">Deleting a user will delete their account, <em>not</em> their channels. Your application should first delete their channel(s) then remove the user account.</aside></p>
+
+<h2 id="change-password">Change Password</h2>
+<pre class="highlight shell"><span class="c">#POST https://demo.buddycloud.org/api/account/pw/change</span>
+
+curl https://demo.buddycloud.org/api/account/pw/change <span class="se">\</span>
+     -X POST <span class="se">\</span>
+     -u juliet@buddycloud.org:romeo-forever <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     -d <span class="s1">'{ \
+            "username": "juliet@buddycloud.org", \
+            "password": "new-password" \
+         }'</span>
+</pre>
+<pre class="highlight javascript"><span class="err">#</span><span class="nx">XMPP</span><span class="o">-</span><span class="nx">FTW</span> <span class="nx">event</span> <span class="s1">'xmpp.register.password'</span>
+
+<span class="nx">socket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span>
+    <span class="s1">'xmpp.register.password'</span><span class="p">,</span>
+    <span class="p">{</span>
+        <span class="s2">"to"</span><span class="p">:</span> <span class="s2">"buddycloud.org"</span><span class="p">,</span>
+        <span class="s2">"username"</span><span class="p">:</span> <span class="s2">"juliet"</span><span class="p">,</span>
+        <span class="s2">"password"</span><span class="p">:</span> <span class="s2">"new-password"</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre>
+
+<p>Changes the user&rsquo;s <code class="prettyprint">password</code>.</p>
+
+<h2 id="reset-password">Reset Password</h2>
+<pre class="highlight shell"><span class="c">#POST https://demo.buddycloud.org/api/account/pw/reset</span>
+
+curl https://demo.buddycloud.org/api/account/pw/reset <span class="se">\</span>
+     -X POST <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     -d <span class="s1">'{ "username": "juliet@buddycloud.org" }'</span>
+
+
+
+
+</pre>
+<pre class="highlight javascript"><span class="err">#</span><span class="nx">Unsupported</span> <span class="nx">Method</span>
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>This resets the user&rsquo;s password by sending a new password to the email address provided by the user during registration.</p>
+
+          <h1 id="realtime-events">Realtime Events</h1>
+<pre class="highlight shell"><span class="c">#You will need to perform at least two HTTP requests</span>
+<span class="c"># in order to get updates.</span>
+<span class="c">#A mandatory one to get the latest timestamp:</span>
+
+<span class="c">#GET https://demo.buddycloud.org/api/notifications/posts</span>
+
+<span class="c">#Then, provide the latest known time stamp to</span>
+<span class="c"># the same endpoint via the url parameter 'since':</span>
+
+<span class="c">#GET https://demo.buddycloud.org/api/notifications/posts?since={timestamp}</span>
+
+<span class="c">#For example:</span>
+
+curl https://demo.buddycloud.org/api/notifications/posts <span class="se">\</span>
+     -X GET
+
+<span class="c">#A response example would be as follows:</span>
+<span class="o">{</span>
+  <span class="s2">"last"</span>: <span class="s2">"1403624041808"</span>,
+  <span class="s2">"items"</span>: <span class="o">[]</span>
+<span class="o">}</span>
+
+curl https://demo.buddycloud.org/api/notifications/posts?since<span class="o">=</span>1403624094454 <span class="se">\</span>
+     -X GET
+
+<span class="c">#Response will be as follows:</span>
+<span class="o">{</span>
+  <span class="s2">"last"</span>: <span class="s2">"1403624094454"</span>,
+  <span class="s2">"items"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"id"</span>: <span class="s2">"f27139a9-f398-4e81-be94-3d14c3b7a39e"</span>,
+      <span class="s2">"source"</span>: <span class="s2">"test@topics.buddycloud.org/posts"</span>,
+      <span class="s2">"author"</span>: <span class="s2">"justin@buddycloud.org"</span>,
+      <span class="s2">"published"</span>: <span class="s2">"2014-06-24T15:34:54.449Z"</span>,
+      <span class="s2">"updated"</span>: <span class="s2">"2014-06-24T15:34:54.449Z"</span>,
+      <span class="s2">"content"</span>: <span class="s2">"foo"</span>,
+      <span class="s2">"media"</span>:null,
+      <span class="s2">"replyTo"</span>:<span class="s2">"d818f9b6-18ef-4b83-8a4e-e2d2ae7d18d5"</span>
+    <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+<pre class="highlight javascript"><span class="err">#</span><span class="nx">First</span> <span class="nx">of</span> <span class="nx">all</span><span class="p">,</span> <span class="nx">you</span> <span class="nx">must</span> <span class="nx">send</span> <span class="nx">presence</span> <span class="k">in</span> <span class="nx">order</span>
+<span class="err">#</span> <span class="nx">to</span> <span class="nx">receive</span> <span class="nx">notifications</span><span class="err">:</span>
+
+<span class="err">#</span><span class="nx">XMPP</span><span class="o">-</span><span class="nx">FTW</span> <span class="nx">event</span> <span class="s1">'xmpp.buddycloud.presence'</span>
+
+<span class="nx">socket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span>
+    <span class="s1">'xmpp.buddycloud.presence'</span><span class="p">,</span>
+    <span class="p">{}</span>
+<span class="p">)</span>
+
+<span class="err">#</span><span class="nx">Then</span> <span class="nx">to</span> <span class="nx">get</span> <span class="nx">updates</span> <span class="nx">of</span> <span class="nx">specific</span> <span class="nx">events</span><span class="p">,</span> <span class="nx">there</span>
+<span class="err">#</span> <span class="nx">are</span> <span class="nx">other</span> <span class="nx">events</span> <span class="nx">as</span> <span class="nx">well</span><span class="p">.</span>
+
+<span class="err">#</span><span class="nx">To</span> <span class="nx">listen</span> <span class="k">for</span> <span class="nx">upcoming</span> <span class="nx">items</span><span class="err">:</span>
+<span class="err">#</span><span class="nx">XMPP</span><span class="o">-</span><span class="nx">FTW</span> <span class="nx">event</span> <span class="s1">'xmpp.buddycloud.push.item'</span>
+
+<span class="nx">socket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span>
+    <span class="s1">'xmpp.buddycloud.push.item'</span><span class="p">,</span>
+    <span class="p">{}</span>
+<span class="p">)</span>
+
+<span class="err">#</span><span class="nx">To</span> <span class="nx">be</span> <span class="nx">informed</span> <span class="k">if</span> <span class="nx">an</span> <span class="nx">item</span> <span class="nx">was</span> <span class="nx">successfully</span> <span class="nx">deleted</span><span class="err">:</span>
+<span class="err">#</span><span class="nx">XMPP</span><span class="o">-</span><span class="nx">FTW</span> <span class="nx">event</span> <span class="s1">'xmpp.buddycloud.push.retract'</span>
+
+<span class="nx">socket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span>
+    <span class="s1">'xmpp.buddycloud.push.retract'</span><span class="p">,</span>
+    <span class="p">{}</span>
+<span class="p">)</span>
+
+<span class="err">#</span><span class="nx">To</span> <span class="nx">be</span> <span class="nx">informed</span> <span class="k">if</span> <span class="nx">a</span> <span class="nx">node</span> <span class="nx">you</span> <span class="nx">follow</span> <span class="nx">had</span> <span class="nx">its</span> <span class="nx">configuration</span> <span class="nx">updated</span><span class="err">:</span>
+<span class="err">#</span><span class="nx">XMPP</span><span class="o">-</span><span class="nx">FTW</span> <span class="nx">event</span> <span class="s1">'xmpp.buddycloud.push.configuration'</span>
+
+<span class="nx">socket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span>
+    <span class="s1">'xmpp.buddycloud.push.configuration'</span><span class="p">,</span>
+    <span class="p">{}</span>
+<span class="p">)</span>
+
+<span class="err">#</span><span class="nx">To</span> <span class="nx">be</span> <span class="nx">informed</span> <span class="nx">of</span> <span class="k">if</span> <span class="nx">a</span> <span class="nx">subscription</span> <span class="nx">change</span>
+<span class="err">#</span> <span class="nx">occured</span> <span class="k">in</span> <span class="nx">a</span> <span class="nx">node</span> <span class="nx">you</span><span class="s1">'re subscribed to:
+#XMPP-FTW event '</span><span class="nx">xmpp</span><span class="p">.</span><span class="nx">buddycloud</span><span class="p">.</span><span class="nx">push</span><span class="p">.</span><span class="nx">subscription</span><span class="s1">'
+
+socket.send(
+    '</span><span class="nx">xmpp</span><span class="p">.</span><span class="nx">buddycloud</span><span class="p">.</span><span class="nx">push</span><span class="p">.</span><span class="nx">subscription</span><span class="s1">',
+    {}
+)
+
+#For affiliation changes:
+#XMPP-FTW event '</span><span class="nx">xmpp</span><span class="p">.</span><span class="nx">buddycloud</span><span class="p">.</span><span class="nx">push</span><span class="p">.</span><span class="nx">affiliation</span><span class="s1">'
+
+socket.send(
+    '</span><span class="nx">xmpp</span><span class="p">.</span><span class="nx">buddycloud</span><span class="p">.</span><span class="nx">push</span><span class="p">.</span><span class="nx">affiliation</span><span class="s1">',
+    {}
+)
+
+#If you'</span><span class="nx">re</span> <span class="nx">a</span> <span class="nx">node</span> <span class="nx">onwer</span> <span class="nx">or</span> <span class="nx">moderator</span><span class="p">,</span> <span class="nx">listen</span> <span class="k">for</span>
+<span class="err">#</span> <span class="nx">subscription</span> <span class="nx">authorisation</span> <span class="nx">requests</span> <span class="nx">through</span><span class="err">:</span>
+<span class="err">#</span><span class="nx">XMPP</span><span class="o">-</span><span class="nx">FTW</span> <span class="nx">event</span> <span class="s1">'xmpp.buddycloud.push.authorisation'</span>
+
+<span class="nx">socket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span>
+    <span class="s1">'xmpp.buddycloud.push.authorisation'</span><span class="p">,</span>
+    <span class="p">{}</span>
+<span class="p">)</span>
+</pre>
+
+<p>Your app can receive realtime upates for all Buddycloud events, including:</p>
+
+<ul>
+<li>new posts from followed channels</li>
+<li>new posts from all public channels via the firehose</li>
+<li>new follow requests</li>
+<li>subscription updates (e.g. &ldquo;a moderator approved your follow request for <code class="prettyprint">citizens-of-verona@verona.lit</code>&rdquo;)</li>
+</ul>
+
+<p>Tell the server that a client is now online to send spooled messages and begin streaming subsequent events.</p>
+
+<p>To retrieve a history of events (for example, since last online), use the <a href="#retrieve-message-history">message archive management</a> API. </p>
+
+<p><aside>Buddycloud uses the <a href="https://github.com/fanout/pushpin/blob/master/doc/grip-protocol.txt">GRIP protocol</a> for realtime event scaling. This works with the Fanout.io content delivery network. To set this up, get a Fanout account and configure the Buddycloud HTTP API component as described in the blog post on <a href="http://blog.buddycloud.com/post/59883382741/scaling-buddycloud-with-fanout-io">scaling Buddycloud with Fanout</a>.</aside></p>
+
+          <h1 id="channels">Channels</h1>
+
+<p>Users subscribe to channels, which work in conjunction with nodes. Channels are comprised of nodes that share related content. Channels represent broader topics while nodes represent related subtopics. The broad topic (or channel) of dog ownership has the following related subtopics (or nodes): feeding schedule, exercise requirements, training methods, and so on.</p>
+
+<p>Remember that a Channel is just a concept - there can only be a Channel if there&rsquo;s at least one Node.</p>
+
+<p><img title="Channels and Nodes" alt="Channels and Nodes" src="http://buddycloud.com/theme/img/diagrams/channel%20hierachy.png" /></p>
+
+          <h1 id="nodes">Nodes</h1>
+
+<p>Nodes are publish-subscribe streams of posts with the same content type. For example, the channel <code class="prettyprint">juliet@capulet.lit</code> is an aggregation of nodes for each type of information that <code class="prettyprint">juliet</code> wants to share. Examples of such nodes could be:</p>
+
+<ul>
+<li><code class="prettyprint">juliet@capulet.lit/social</code> node (the serialization of <code class="prettyprint">juliet@capulet.lit</code>&rsquo;s social activities)</li>
+<li><code class="prettyprint">juliet@capulet.lit/status</code> node (a text string describing <code class="prettyprint">juliet@capulet.lit</code>&rsquo;s mood)</li>
+<li><code class="prettyprint">juliet@capulet.lit/music-i-liked</code> node (a hypothetical <a href="http://activitystrea.ms/specs/json/1.0/">activity stream</a> of music <code class="prettyprint">juliet@capulet.lit</code> likes)</li>
+</ul>
+
+<p>Each of these nodes have:</p>
+
+<ul>
+<li>a set of followers;</li>
+<li>a set of publishers;</li>
+<li>metadata (e.g. <code class="prettyprint">title</code>, <code class="prettyprint">description</code> and <code class="prettyprint">location</code> fields).</li>
+</ul>
+
+<h3 id="personal-nodes-v.-topic-nodes">Personal Nodes v. Topic Nodes</h3>
+
+<p>Buddycloud divides nodes into two categories: <code class="prettyprint">topic</code> and <code class="prettyprint">personal</code>.</p>
+
+<p>For example, the channel <code class="prettyprint">juliet@capulet.lit</code> comprises personal nodes for each type of information that <code class="prettyprint">juliet</code> wants to share, such as her social activities, reflections on her mood, and the media she comments on. </p>
+
+<table><thead>
+<tr>
+<th>Trait</th>
+<th><em>Personal</em> Node</th>
+<th><em>Topic</em> Node</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>channelID</td>
+<td>e.g. <code class="prettyprint">juliet@capulet.lit/{nodeID}</code></td>
+<td>e.g. <code class="prettyprint">montague-family@topics.montague.org/posts</code></td>
+</tr>
+<tr>
+<td>Purpose</td>
+<td>represents a real person</td>
+<td>represents a topic</td>
+</tr>
+<tr>
+<td>Namespace</td>
+<td>created in <code class="prettyprint">&lt;channelID&gt;@example.com</code></td>
+<td>created in <code class="prettyprint">&lt;channelID&gt;@topics.example.com</code></td>
+</tr>
+<tr>
+<td>ChannelID</td>
+<td>named after a user&rsquo;s <code class="prettyprint">username</code></td>
+<td>not tied to a user&rsquo;s <code class="prettyprint">username</code></td>
+</tr>
+<tr>
+<td>Owned By</td>
+<td>owned by the matching <code class="prettyprint">username</code></td>
+<td>can be owned by any user</td>
+</tr>
+<tr>
+<td>Messaging</td>
+<td>can receive private chat messages</td>
+<td>not applicable</td>
+</tr>
+<tr>
+<td>Location Sharing</td>
+<td>geolocation optionally shared with followers</td>
+<td>anyone can search for nearby channels</td>
+</tr>
+</tbody></table>
+
+<h3 id="node-privacy-settings">Node Privacy Settings</h3>
+
+<p>Nodes may be private or public. Node Privacy is controlled by the node&rsquo;s <code class="prettyprint">access_model</code>:</p>
+
+<table><thead>
+<tr>
+<th></th>
+<th>Public Node</th>
+<th>Private Node</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>access_model</td>
+<td>open</td>
+<td>authorize</td>
+</tr>
+<tr>
+<td>visibility</td>
+<td>anyone can view</td>
+<td>requires a subscription request to view</td>
+</tr>
+</tbody></table>
+
+<p>The node <a href="#update-metadata">metadata</a> for <em>public</em> and <em>private</em> node is always publicly accessible.</p>
+
+<h3 id="who-creates-the-set-of-nodes-for-a-channel?">Who creates the set of nodes for a channel?</h3>
+
+<p>Your application is responsible for creating the set of nodes it is going to use for a given channel. For example, the social application running at <a href="https://demo.buddycloud.org">https://demo.buddycloud.org</a> automatically creates the following nodes everytime a new channel is created:</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th style="text-align: center">Personal Channel</th>
+<th style="text-align: center">Topic Channel</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td style="text-align: center">✓</td>
+<td style="text-align: center">✓</td>
+<td>a one-line status message</td>
+</tr>
+<tr>
+<td>posts</td>
+<td style="text-align: center">✓</td>
+<td style="text-align: center">✓</td>
+<td>ATOM formatted activity stream</td>
+</tr>
+<tr>
+<td>geoloc-previous</td>
+<td style="text-align: center">✓</td>
+<td style="text-align: center">✗</td>
+<td>where they were</td>
+</tr>
+<tr>
+<td>geoloc-current</td>
+<td style="text-align: center">✓</td>
+<td style="text-align: center">✗</td>
+<td>where they are</td>
+</tr>
+<tr>
+<td>geoloc-future</td>
+<td style="text-align: center">✓</td>
+<td style="text-align: center">✗</td>
+<td>where they will go next</td>
+</tr>
+<tr>
+<td>public-key</td>
+<td style="text-align: center">✓</td>
+<td style="text-align: center">✗</td>
+<td>public key for secure messaging</td>
+</tr>
+</tbody></table>
+
+<h2 id="create-node">Create Node</h2>
+<pre class="highlight shell"><span class="c">#POST https://demo.buddycloud.org/api/{channelID}/{nodeID}</span>
+
+curl https://demo.buddycloud.org/api/juliet@buddycloud.org/posts <span class="se">\</span>
+    -X POST <span class="se">\</span>
+    -u juliet@buddycloud.org:romeo-forever
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+<pre class="highlight javascript"><span class="err">#</span><span class="nx">XMPP</span><span class="o">-</span><span class="nx">FTW</span> <span class="nx">event</span> <span class="s1">'xmpp.pubsub.create'</span>
+
+<span class="nx">socket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span>
+    <span class="s1">'xmpp.pubsub.create'</span><span class="p">,</span>
+    <span class="p">{</span>
+        <span class="s2">"to"</span><span class="p">:</span> <span class="s2">"pubsub.buddycloud.org"</span><span class="p">,</span>
+        <span class="s2">"node"</span><span class="p">:</span> <span class="s2">"/user/juliet@buddycloud.org/posts"</span><span class="p">,</span>
+        <span class="s2">"options"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"var"</span><span class="p">:</span> <span class="s2">"buddycloud#channel_type"</span><span class="p">,</span>
+                <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"personal"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"var"</span><span class="p">:</span> <span class="s2">"pubsub#title"</span><span class="p">,</span>
+                <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"Juliet's posts node"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"var"</span><span class="p">:</span> <span class="s2">"pubsub#access_model"</span><span class="p">,</span>
+                <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"open"</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">)</span>
+</pre>
+
+<p>This allows creation of nodes.</p>
+
+<h2 id="delete-node">Delete Node</h2>
+<pre class="highlight shell"><span class="c">#DELETE https://demo.buddycloud.org/api/{channelID}/{nodeID}</span>
+
+curl https://demo.buddycloud.org/api/juliet@buddycloud.org/posts <span class="se">\</span>
+    -X DELETE <span class="se">\</span>
+    -u juliet@buddycloud.org:romeo-forever
+
+
+
+
+</pre>
+<pre class="highlight javascript"><span class="err">#</span><span class="nx">XMPP</span><span class="o">-</span><span class="nx">FTW</span> <span class="nx">event</span> <span class="s1">'xmpp.pubsub.delete'</span>
+
+<span class="nx">socket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span>
+    <span class="s1">'xmpp.pubsub.delete'</span><span class="p">,</span>
+    <span class="p">{</span>
+        <span class="s2">"to"</span><span class="p">:</span> <span class="s2">"pubsub.buddycloud.org"</span><span class="p">,</span>
+        <span class="s2">"node"</span><span class="p">:</span> <span class="s2">"/user/juliet@buddycloud.org/posts"</span>
+    <span class="p">},</span>
+    <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">)</span>
+</pre>
+
+<p>This will remove a node.</p>
+
+<h2 id="fetch-metadata">Fetch Metadata</h2>
+<pre class="highlight shell"><span class="c">#GET https://demo.buddycloud.org/api/{channelID}/metadata/{nodeID}</span>
+
+curl https://demo.buddycloud.org/api/juliet@buddycloud.org/metadata/posts <span class="se">\</span>
+     -X GET <span class="se">\</span>
+     -u juliet@buddycloud.org:romeo-forever
+</pre>
+<pre class="highlight javascript"><span class="err">#</span><span class="nx">XMPP</span><span class="o">-</span><span class="nx">FTW</span> <span class="nx">event</span> <span class="s1">'xmpp.pubsub.config.set'</span>
+
+<span class="nx">socket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span>
+    <span class="s1">'xmpp.pubsub.config.get'</span><span class="p">,</span>
+    <span class="p">{</span>
+        <span class="s2">"to"</span><span class="p">:</span> <span class="s2">"pubsub.buddycloud.org"</span><span class="p">,</span>
+        <span class="s2">"node"</span><span class="p">:</span> <span class="s2">"/user/juliet@buddycloud.org/posts"</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">)</span>
+</pre>
+
+<p>Metadata allows you to describe the node, set defaults and even add a location to the node so that it will show up in nearby queries.</p>
+
+<p>Node metadata is always visible for both public and private nodes.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Argument</th>
+<th>Editable</th>
+<th>Values</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>channelID</td>
+<td>false</td>
+<td>≤1023 bytes</td>
+<td>e.g. <code class="prettyprint">user@example.com</code> or <code class="prettyprint">topic@topics.example.com</code></td>
+</tr>
+<tr>
+<td>title</td>
+<td>true</td>
+<td>up to 50 characters</td>
+<td>the node&rsquo;s title</td>
+</tr>
+<tr>
+<td>description</td>
+<td>true</td>
+<td>up to 200 characters</td>
+<td>a short string describing the node</td>
+</tr>
+<tr>
+<td>creation_date</td>
+<td>false</td>
+<td><a href="https://tools.ietf.org/html/rfc3339">RFC3399</a> timestamp</td>
+<td>when the node was created</td>
+</tr>
+<tr>
+<td>access_model</td>
+<td>true</td>
+<td><code class="prettyprint">open</code>, <code class="prettyprint">authorize</code></td>
+<td>whether the node is <code class="prettyprint">public</code> or <code class="prettyprint">private</code> <strong>changed description to match style guide</strong></td>
+</tr>
+<tr>
+<td>channel_type</td>
+<td>false</td>
+<td><code class="prettyprint">personal</code>, <code class="prettyprint">topic</code></td>
+<td>whether this is a <code class="prettyprint">personal</code> node or a <code class="prettyprint">topic</code> node</td>
+</tr>
+<tr>
+<td>default_affiliation</td>
+<td>true</td>
+<td><code class="prettyprint">publisher</code>, <code class="prettyprint">follower</code></td>
+<td>the permissions a new subscriber is granted</td>
+</tr>
+</tbody></table>
+
+<p>A complete set of node metadata is available from the <a href="http://buddycloud.github.io/buddycloud-xep/#default-roles">Buddycloud protocol specification</a>. </p>
+
+<h2 id="update-metadata">Update Metadata</h2>
+<pre class="highlight shell"><span class="c">#POST https://demo.buddycloud.org/api/{channelID}/metadata/{nodeID}</span>
+
+curl https://demo.buddycloud.org/api/juliet@buddycloud.org/metadata/posts <span class="se">\</span>
+     -X POST <span class="se">\</span>
+     -u juliet@buddycloud.org:romeo-forever <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     -d <span class="s1">'{ \
+            "title": "New Juliet`s Posts Node Title", \
+            "description": "Everything about Juliet", \
+            "default_affiliation": "publisher" \
+         }'</span>
+</pre>
+<pre class="highlight javascript"><span class="err">#</span><span class="nx">XMPP</span><span class="o">-</span><span class="nx">FTW</span> <span class="nx">event</span> <span class="s1">'xmpp.pubsub.config.set'</span>
+
+<span class="nx">socket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span>
+    <span class="s1">'xmpp.pubsub.config.set'</span><span class="p">,</span>
+    <span class="p">{</span>
+        <span class="s2">"to"</span><span class="p">:</span> <span class="s2">"pubsub.buddycloud.org"</span><span class="p">,</span>
+        <span class="s2">"node"</span><span class="p">:</span> <span class="s2">"/user/juliet@buddycloud.org/posts"</span><span class="p">,</span>
+        <span class="s2">"form"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"var"</span><span class="p">:</span> <span class="s2">"pubsub#title"</span><span class="p">,</span>
+                <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"New Juliet's Posts Node Title"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"var"</span><span class="p">:</span> <span class="s2">"pubsub#description"</span><span class="p">,</span>
+                <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"Everything about Juliet"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"var"</span><span class="p">:</span> <span class="s2">"buddycloud#default_affiliation"</span><span class="p">,</span>
+                <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"publisher"</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">)</span>
+</pre>
+
+          <h1 id="posts">Posts</h1>
+
+<p>To create new content, your users post to a <a href="#channel-nodes">channel-node</a>.</p>
+
+<p>New post is are automaticaly:</p>
+
+<ul>
+<li>pushed to the channel&rsquo;s online followers</li>
+<li>spooled up for the channel&rsquo;s offline followers</li>
+<li>pushed to the <a href="#access-firehose">firehose</a></li>
+<li>archived and retrievable using the <a href="#fetch-posts">fetch posts</a> method.</li>
+<li>indexed by the <a href="https://github.com/buddycloud/channel-directory">channel crawler</a></li>
+</ul>
+
+<p>Different channel types have different post formats.</p>
+
+<h3 id="post-parameters">Post Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Set by</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">author</code></td>
+<td><code class="prettyprint">username</code></td>
+<td>server</td>
+<td><code class="prettyprint">juliet@capulet.lit</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">content</code></td>
+<td>[usually] Activity stream content</td>
+<td>user</td>
+<td><code class="prettyprint">O Romeo, Romeo! wherefore art thou Romeo?</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">id</code></td>
+<td>a unique post ID</td>
+<td>server</td>
+<td><code class="prettyprint">17163726-ea90-453e-ad25-455336a83fd4</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">media</code></td>
+<td>a list of media objects the post might refer to</td>
+<td>user</td>
+<td><code class="prettyprint">[{&quot;id&quot;: &quot;romeo-photo-id&quot;, &quot;channel&quot;: &quot;alice@capulet.lit&quot;}]</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">replyTo</code></td>
+<td>parent post <code class="prettyprint">id</code></td>
+<td>user</td>
+<td><code class="prettyprint">9b7724d0-7ef5-4331-8974-81754abb7ba0</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">published</code></td>
+<td>when the post was created</td>
+<td>server</td>
+<td><code class="prettyprint">2012-11-02T03:41:55.484Z</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">updated</code></td>
+<td>the last time there was a reply in this thread or when the post was created</td>
+<td>server</td>
+<td><code class="prettyprint">2012-11-02T03:41:55.484Z</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="create-post">Create Post</h2>
+<pre class="highlight shell"><span class="c">#POST https://demo.buddycloud.org/api/{channelID}/content/{nodeId}</span>
+
+curl https://demo.buddycloud.org/api/romeo@buddycloud.org/content/posts <span class="se">\</span>
+     -X POST <span class="se">\</span>
+     -u juliet@buddycloud.org:romeo-forever <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     -d <span class="s1">'{ "content": "O Romeo, Romeo, wherefore art thou Romeo?" }'</span>
+
+<span class="c">#Response will be as follows:</span>
+
+201 Created
+Location: https://demo.buddycloud.org/romeo@buddycloud.org/content/posts/<span class="nv">$POST_ID</span>
+</pre>
+<pre class="highlight javascript">
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>Creating a post adds a new item to a channel-node.. </p>
+
+<p><aside>You can define your own format for your own application nodes (e.g. <code class="prettyprint">x-application-chessApp-move-history</code>). The <a href="#default-channel-nodes">default channel nodes</a> have a pre-defined format and will reject posts that are not formated according to what the server expects. For example, the <code class="prettyprint">posts</code> node expects to receive Activity stream events.</aside></p>
+
+<h2 id="delete-post">Delete Post</h2>
+<pre class="highlight shell"><span class="c">#DELETE https://demo.buddycloud.org/api/{channelID}/content/{nodeID}/{postID}</span>
+
+curl https://demo.buddycloud.org/api/romeo@buddycloud.org/content/posts/<span class="nv">$POST_ID</span> <span class="se">\</span>
+     -X DELETE <span class="se">\</span>
+     -u juliet@buddycloud.org:romeo-forever 
+
+
+
+
+
+</pre>
+<pre class="highlight javascript">
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>Removes a single post from a node.</p>
+
+<p>When a post is deleted,</p>
+
+<ul>
+<li>the post is deleted from the channel-node&rsquo;s history,</li>
+<li>a retraction message is sent to online users.</li>
+</ul>
+
+<p><aside>Deleting a post that references a mediaID will not remove the media object from the media server. That should be done seperately using a <a href="#delete-media">delete media</a> query.</aside></p>
+
+<h2 id="fetch-posts">Fetch Posts</h2>
+<pre class="highlight shell"><span class="c">#GET https://demo.buddycloud.org/api/{channelId}/content/{nodeId}</span>
+
+curl https://demo.buddycloud.org/api/juliet@buddycloud.org/content/posts <span class="se">\</span>
+     -X GET <span class="se">\</span>
+     -H <span class="s2">"Accept: application/json"</span>
+
+<span class="c">#Response would be as follows:</span>
+
+200 OK
+Content-Type: application/json
+
+<span class="o">[</span>
+    <span class="o">{</span>
+        <span class="s2">"id"</span>: <span class="s2">"foo"</span>,
+        <span class="s2">"author"</span>: <span class="s2">"romeo@buddycloud.org"</span>,
+        <span class="s2">"updated"</span>: <span class="s2">"1595-06-01T12:00:00Z"</span>,
+        <span class="s2">"content"</span>: <span class="s2">"But, soft! What light through yonder window breaks? It is the east, and Juliet is the sun."</span>,
+        <span class="s2">"media"</span>: null
+    <span class="o">}</span>,
+    ...
+    <span class="o">{</span>
+        <span class="s2">"id"</span>: <span class="s2">"bar"</span>,
+        <span class="s2">"author"</span>: <span class="s2">"romeo@buddycloud.org"</span>,
+        <span class="s2">"updated"</span>: <span class="s2">"1591-06-04T12:00:00Z"</span>,
+        <span class="s2">"content"</span>: <span class="s2">"Thus with a kiss I die."</span>,
+        <span class="s2">"media"</span>: null
+    <span class="o">}</span>
+<span class="o">]</span>
+
+<span class="c">#But if you want to use pagination:</span>
+<span class="c">#GET https://demo.buddycloud.org/api/{channelId}/content/{nodeId}?{queryParameter}={value}</span>
+
+curl https://demo.buddycloud.org/api/juliet@buddycloud.org/content/posts?max<span class="o">=</span>3 <span class="se">\</span>
+     -X GET <span class="se">\</span>
+     -H <span class="s2">"Accept: application/json"</span>
+
+<span class="c">#Then, response would be as follows:</span>
+
+200 OK
+Content-Type: application/json
+
+<span class="o">{</span>
+    <span class="s2">"items"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+            <span class="s2">"id"</span>: <span class="s2">"foo"</span>,
+            <span class="s2">"author"</span>: <span class="s2">"romeo@buddycloud.org"</span>,
+            <span class="s2">"updated"</span>: <span class="s2">"1595-06-01T12:00:00Z"</span>,
+            <span class="s2">"content"</span>: <span class="s2">"But, soft! What light through yonder window breaks? It is the east, and Juliet is the sun."</span>,
+            <span class="s2">"media"</span>: null
+        <span class="o">}</span>,
+        ...
+        <span class="o">{</span>
+            <span class="s2">"id"</span>: <span class="s2">"bar"</span>,
+            <span class="s2">"author"</span>: <span class="s2">"romeo@buddycloud.org"</span>,
+            <span class="s2">"updated"</span>: <span class="s2">"1591-06-04T12:00:00Z"</span>,
+            <span class="s2">"content"</span>: <span class="s2">"Thus with a kiss I die."</span>,
+            <span class="s2">"media"</span>: null
+        <span class="o">}</span>
+    <span class="o">]</span>,
+    <span class="s2">"rsm"</span>: <span class="o">{</span>
+        <span class="s2">"count"</span>: <span class="s2">"3"</span>,
+        <span class="s2">"index"</span>: <span class="s2">"0"</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre>
+<pre class="highlight javascript">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>Retrieves one or more posts using <a href="#pagination">pagination</a> ranges.</p>
+
+<p>This is useful for retrieving just the posts from an individual node. Consider using the <a href="#sync-posts">sync posts</a> call for requesing posts across all channels a user follows.</p>
+
+<p><aside>Often it&rsquo;s useful to quickly show the 20 most recent posts. However some of these posts may reference a parent post outside of the apps&rsquo;s cache. </p>
+
+<p>To retrieve a missing parent post, you can query for the post ID referenced by the post&rsquo;s <code class="prettyprint">replyTo</code>.</aside></p>
+
+<h2 id="fetch-child-posts">Fetch Child Posts</h2>
+<pre class="highlight shell"><span class="c">#GET https://demo.buddycloud.org/api/{channelID}/content/{nodeId}/{postID}/replyto</span>
+
+curl https://demo.buddycloud.org/api/romeo@buddycloud.org/content/posts/<span class="nv">$POST_ID</span>/replyto <span class="se">\</span>
+     -X GET <span class="se">\</span>
+     -H <span class="s2">"Accept: application/json"</span>
+
+<span class="c">#Response will be as follows:</span>
+
+200 OK
+Content-Type: application/json
+
+<span class="o">[</span>
+    <span class="o">{</span>
+        <span class="s2">"id"</span>: <span class="s2">"foo"</span>,
+        <span class="s2">"replyTo"</span>: <span class="s2">"qux"</span>,
+        <span class="s2">"author"</span>: <span class="s2">"romeo@buddycloud.org"</span>,
+        <span class="s2">"updated"</span>: <span class="s2">"1595-06-01T12:00:00Z"</span>,
+        <span class="s2">"content"</span>: <span class="s2">"But, soft! What light through yonder window breaks? It is the east, and Juliet is the sun."</span>,
+        <span class="s2">"media"</span>: null
+    <span class="o">}</span>,
+    ...
+    <span class="o">{</span>
+        <span class="s2">"id"</span>: <span class="s2">"bar"</span>,
+        <span class="s2">"replyTo"</span>: <span class="s2">"qux"</span>,
+        <span class="s2">"author"</span>: <span class="s2">"romeo@buddycloud.org"</span>,
+        <span class="s2">"updated"</span>: <span class="s2">"1591-06-04T12:00:00Z"</span>,
+        <span class="s2">"content"</span>: <span class="s2">"Thus with a kiss I die."</span>,
+        <span class="s2">"media"</span>: null
+    <span class="o">}</span>
+<span class="o">]</span>
+</pre>
+<pre class="highlight javascript">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>Buddycloud uses the <a href="http://www.ietf.org/rfc/rfc4685.txt">Atom threading extensions</a> to enable you to easily query for child posts.</p>
+
+<h2 id="sync-posts">Sync Posts</h2>
+<pre class="highlight shell">
+
+
+
+
+
+
+
+
+
+</pre>
+<pre class="highlight javascript">
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>An app might want to just show the latest 10 posts per channel (and query for older posts can be paged in as the users scrolls down). </p>
+
+<p>The <code class="prettyprint">sync</code> query returns [???up to???] <code class="prettyprint">&lt;x posts&gt;</code> posts per channel newer than <code class="prettyprint">&lt;timestamp of most recent post in client cache&gt;</code>. </p>
+
+<p>This avoids the problem of a very busy channel &ldquo;drowning&rdquo; other posts during a client synchronisation.</p>
+
+<table><thead>
+<tr>
+<th>Paramenter</th>
+<th>Required</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">since</code></td>
+<td><code class="prettyprint">true</code></td>
+<td><a href="http://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> timestamp???</td>
+<td>Useful for catching up from the most recent post in the Buddycloud app&rsquo;s cache.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">max</code></td>
+<td><code class="prettyprint">false</code></td>
+<td>integer</td>
+<td>the maximum number of posts to be returned per channel</td>
+</tr>
+<tr>
+<td><code class="prettyprint">summary</code></td>
+<td><code class="prettyprint">false</code></td>
+<td><code class="prettyprint">true</code>, <code class="prettyprint">false</code></td>
+<td>returns only summary information per channel (not posts)</td>
+</tr>
+</tbody></table>
+
+<h2 id="upvote-post">Upvote Post</h2>
+<pre class="highlight shell"><span class="c">#Unsupported Method</span>
+
+
+
+
+
+
+
+
+
+</pre>
+<pre class="highlight javascript"><span class="err">#</span><span class="nx">Unsupported</span> <span class="nx">Method</span>
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>Users can can give feedback on posts by upvoting/liking posts. Upvotes take a value of 1 to 5. It&rsquo;s recommended that for a binary &ldquo;like&rdquo; you simply apply a value of 5.</p>
+
+<h2 id="access-firehose">Access Firehose</h2>
+<pre class="highlight shell"><span class="c">#Unsupported Method</span>
+
+
+
+
+
+
+
+
+
+</pre>
+<pre class="highlight javascript"><span class="err">#</span><span class="nx">Unsupported</span> <span class="nx">Method</span>
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>The <code class="prettyprint">/firehose</code> contains a feed of all channel-nodes that you are subscribed to that are cached locally.</p>
+
+<p>The firehose node can also be queried for historical posts using <a href="#pagination">pagination</a>.</p>
+
+<p>If unauthenticated, the firehose will show posts from public channels.</p>
+
+<p>If you are logged in you can also retrieve posts that you subscribe to from private channels.</p>
+
+          <h1 id="subscriptions">Subscriptions</h1>
+
+<p>The subscription list includes all the channels a user follows and their role in the channel. </p>
+
+<p>Retrieving a user&rsquo;s channel subscription list will return:</p>
+
+<ul>
+<li>the channels (and channel-nodes) that they follow (<code class="prettyprint">owner</code>, <code class="prettyprint">moderator</code>, <code class="prettyprint">publisher</code>, <code class="prettyprint">member</code> )</li>
+<li>the private channels (and channel-nodes) they have asked (subscription state of <code class="prettyprint">pending</code>) to follow.</li>
+</ul>
+
+<h3 id="subscription-privacy">Subscription Privacy</h3>
+
+<p>Users can only request their own subscriptions.</p>
+
+<h2 id="fetch-subscriptions">Fetch Subscriptions</h2>
+<pre class="highlight shell"><span class="c">#GET https://demo.buddycloud.org/api/subscribed</span>
+
+curl https://demo.buddycloud.org/api/subscribed <span class="se">\</span>
+     -X GET <span class="se">\</span>
+     -u juliet@buddycloud.org:romeo-forever <span class="se">\</span>
+     -H <span class="s2">"Accept: application/json"</span>
+
+<span class="c">#Response would be as follows:</span>
+
+200 OK
+Content-Type: application/json
+
+<span class="o">{</span>
+    <span class="s2">"juliet@buddycloud.org"</span>: <span class="s2">"owner"</span>,
+    <span class="s2">"romeo@buddycloud.org"</span>: <span class="s2">"pending"</span>,
+    <span class="s2">"capulet@topics.buddycloud.org"</span>: <span class="s2">"publisher"</span>
+<span class="o">}</span>
+</pre>
+<pre class="highlight javascript">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>Returns the user&rsquo;s channel subscriptions as a JSON object. The object&rsquo;s keys are of the form <code class="prettyprint">{channel}</code> <code class="prettyprint">/</code> <code class="prettyprint">{node}</code>, the values denote the subscription type (<code class="prettyprint">owner</code>, <code class="prettyprint">moderator</code>, <code class="prettyprint">publisher</code>, <code class="prettyprint">member</code> or <code class="prettyprint">pending</code>).</p>
+
+<h2 id="follow-channel">Follow Channel</h2>
+<pre class="highlight shell"><span class="c">#POST https://demo.buddycloud.org/api/subscribed</span>
+
+curl https://demo.buddycloud.org/api/subscribed <span class="se">\</span>
+     -X POST <span class="se">\</span>
+     -u juliet@buddycloud.org:romeo-forever <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     -d <span class="s1">'{ "romeo@buddycloud.org/posts": "publisher" }'</span>
+
+
+
+
+</pre>
+<pre class="highlight javascript">
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>Following behavior is dependent on the channel type:</p>
+
+<ul>
+<li>Following an <em>open</em> channel is automatically allowed.</li>
+<li>Following a <em>private</em> channel generates a <code class="prettyprint">pending</code> subscription request</li>
+</ul>
+
+<p>Following a <em>private</em> channel:</p>
+
+<ul>
+<li>the user is added to the channel&rsquo;s <code class="prettyprint">pending</code> subscription list</li>
+<li>the channel&rsquo;s <code class="prettyprint">owner</code> or a <code class="prettyprint">moderator</code> receives a subscription request (immediately if they are online or queued up for when they come online)</li>
+<li>either the channels <code class="prettyprint">owner</code> or any of the channels <code class="prettyprint">moderator</code>s approves [or rejects] and the result is then sent back to the user trying to follow the channel ???how???</li>
+<li>the user&rsquo;s subscription state is changed to <code class="prettyprint">subscribed</code>, <code class="prettyprint">publisher</code> (or <code class="prettyprint">none</code> if rejected) depending on the channel&rsquo;s <code class="prettyprint">default_affiliation</code>. </li>
+</ul>
+
+<p><aside>The channel <code class="prettyprint">owner</code> and <code class="prettyprint">moderator</code> roles can adjust the <code class="prettyprint">default_affiliation</code> is set in [#Update Metadata].</aside></p>
+
+<h2 id="unfollow-channel">Unfollow Channel</h2>
+<pre class="highlight shell">POST https://demo.buddycloud.org/api/subscribed
+
+curl https://demo.buddycloud.org/api/subscribed <span class="se">\</span>
+     -X POST <span class="se">\</span>
+     -u juliet@buddycloud.org:romeo-forever <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     -d <span class="s1">'{ \
+             "romeo@buddycloud.org/posts": "none" \
+         }'</span>
+
+</pre>
+<pre class="highlight javascript">
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>Unfollowing a private channel removes the ability to read, upvote or delete posts. </p>
+
+<p>Unfollowing a private channel will require re-requesting a subscription and re-approval of a moderator. </p>
+
+          <h1 id="followers">Followers</h1>
+
+<p>Channel followers can have different roles.</p>
+
+<table><thead>
+<tr>
+<th>Role</th>
+<th>User sees</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">owner</code></td>
+<td><code class="prettyprint">owner</code></td>
+<td>add/remove moderators</td>
+</tr>
+<tr>
+<td><code class="prettyprint">moderator</code></td>
+<td><code class="prettyprint">moderator</code></td>
+<td>approve subscription requests &amp; delete posts</td>
+</tr>
+<tr>
+<td><code class="prettyprint">publisher</code></td>
+<td><code class="prettyprint">follower+post</code></td>
+<td>create posts</td>
+</tr>
+<tr>
+<td><code class="prettyprint">member</code></td>
+<td><code class="prettyprint">follower</code></td>
+<td>only view posts</td>
+</tr>
+<tr>
+<td><code class="prettyprint">pending</code></td>
+<td><code class="prettyprint">pending</code></td>
+<td>nothing</td>
+</tr>
+<tr>
+<td><code class="prettyprint">outcast</code></td>
+<td><code class="prettyprint">null</code></td>
+<td>only visibile to the <code class="prettyprint">owner</code> and <code class="prettyprint">moderator</code> roles.</td>
+</tr>
+</tbody></table>
+
+<p>The <code class="prettyprint">outcast</code> role is useful for dealing with abusive users. </p>
+
+<p>Once a user is <code class="prettyprint">outcast</code>, they can no longer post or generate subscripion requests to that channel. Only the channel&rsquo;s <code class="prettyprint">owner</code> and <code class="prettyprint">moderator</code>s can view users with the <code class="prettyprint">outcast</code> role.</p>
+
+<p><aside class="warning">
+Users follow channels. You should never see a <em>topic</em> channel with the metadata <code class="prettyprint">channeltype=topic</code> following a channel.
+</aside></p>
+
+<h2 id="fetch-followers">Fetch Followers</h2>
+<pre class="highlight shell"><span class="c">#GET https://demo.buddycloud.org/api/{channelId}/subscribers/{nodeId}</span>
+
+curl https://demo.buddycloud.org/api/romeo@buddycloud.org/subscribers/posts <span class="se">\</span>
+     -X GET <span class="se">\</span>
+     -u romeo@buddycloud.org:juliet-forever <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/json"</span>
+
+<span class="c">#Response would be as follows:</span>
+
+200 OK
+Content-Type: application/json
+
+<span class="o">{</span>
+    <span class="s2">"romeo@buddycloud.org"</span>: <span class="s2">"owner"</span>,
+    <span class="s2">"benvolio@buddycloud.org"</span>: <span class="s2">"publisher"</span>
+<span class="o">}</span>
+</pre>
+<pre class="highlight javascript">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>This request returns a list of channel followers and their role in the channel.</p>
+
+<table><thead>
+<tr>
+<th>Public channels</th>
+<th>Private Channels</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Return the list without authentication</td>
+<td>requesting user must also be an <code class="prettyprint">owner</code> <code class="prettyprint">moderator</code> <code class="prettyprint">publisher</code> or <code class="prettyprint">member</code> of the channel</td>
+</tr>
+</tbody></table>
+
+<p>???we really need a way to query by role type - eg show me just the moderators of this channel???</p>
+
+<h2 id="retrieve-pending-followers">Retrieve Pending Followers</h2>
+<pre class="highlight shell"><span class="c">#GET https://demo.buddycloud.org/api/{channelId}/subscribers/{nodeId}/approve</span>
+
+curl https://demo.buddycloud.org/api/romeo@buddycloud.org/subscribers/posts/approve <span class="se">\</span>
+     -X GET <span class="se">\</span>
+     -u romeo@buddycloud.org:juliet-forever <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/json"</span>
+
+<span class="c">#Response would be as follows:</span>
+
+200 OK
+Content-Type application/json
+
+<span class="o">[</span>
+    <span class="o">{</span>
+        <span class="s2">"subscription"</span>: <span class="s2">"subscribed"</span>,
+        <span class="s2">"jid"</span>: <span class="s2">"benvolio@buddycloud.org"</span>
+    <span class="o">}</span>,
+    <span class="o">{</span>
+        <span class="s2">"subscription"</span>: <span class="s2">"pending"</span>,
+        <span class="s2">"jid"</span>: <span class="s2">"juliet@buddycloud.org"</span>
+    <span class="o">}</span>,
+    <span class="o">{</span>
+        <span class="s2">"subscription"</span>: <span class="s2">"pending"</span>,
+        <span class="s2">"jid"</span>: <span class="s2">"tybalt@buddycloud.org"</span>
+    <span class="o">}</span>
+<span class="o">]</span>
+</pre>
+<pre class="highlight javascript">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>Retrieves the list of subscriptions of a node. Returns a list of objects containing the subscriber JID and the values of its subscription state (<code class="prettyprint">subscribed</code> or <code class="prettyprint">pending</code>).</p>
+
+<h2 id="authorise-pending-followers">Authorise Pending Followers</h2>
+<pre class="highlight shell"><span class="c">#POST https://demo.buddycloud.org/api/{channelId}/subscribers/{nodeId}/approve</span>
+
+curl https://demo.buddycloud.org/api/romeo@buddycloud.org/subscribers/posts/approve <span class="se">\</span>
+     -X POST <span class="se">\</span>
+     -u romeo@buddycloud.org:juliet-forever <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     -d <span class="s1">'[ \
+             { \
+                 "subscription": "subscribed", \
+                 "jid": "juliet@buddycloud.org" \
+             }, \
+             { \
+                 "subscription": "none", \
+                 "jid": "tybalt@buddycloud.org" \
+             } \
+         ]'</span>
+</pre>
+<pre class="highlight javascript">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>This allows a channel&rsquo;s <code class="prettyprint">owner</code> or <code class="prettyprint">moderator</code> to approve or deny incoming subscription requests.</p>
+
+<table><thead>
+<tr>
+<th>Subscription State</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">pending</code></td>
+<td>No action taken by <code class="prettyprint">owner</code> or <code class="prettyprint">moderator</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">subscribed</code></td>
+<td>Permission to follow channel granted.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">none</code></td>
+<td>Permission to follow channel denied.</td>
+</tr>
+</tbody></table>
+
+<h2 id="alter-follower-roles">Alter Follower Roles</h2>
+<pre class="highlight shell"><span class="c">#POST https://demo.buddycloud.org/api/{channelId}/subscribers/{nodeId}</span>
+
+curl https://demo.buddycloud.org/api/romeo@buddycloud.org/subscribers/posts <span class="se">\</span>
+     -X POST <span class="se">\</span>
+     -u romeo@buddycloud.org:juliet-forever <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     -d <span class="s1">'{ \
+             "juliet@buddycloud.org": "member" \
+         }'</span>
+
+</pre>
+<pre class="highlight javascript">
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>This enables users to promote (or demote) user subscriptions to <code class="prettyprint">publisher</code>, <code class="prettyprint">member</code> or even <code class="prettyprint">moderator</code>. By setting a subscription to <code class="prettyprint">outcast</code>, the user is banned.</p>
+
+          <h1 id="media">Media</h1>
+
+<p>The media server enables media sharing in channels. Users can drag-n-drop files into a channel and the contents are then shared with <em>only</em> that channel&rsquo;s followers.</p>
+
+<p>Media can be any type of file, and any file size (Buddycloud site administrators usually set about 10GB as a maximum size.)</p>
+
+<p><aside class="notice">Authentication is not required for requesting media from a public channel. Authentication is required for private channels.</aside></p>
+
+<h3 id="special-mediaids">Special MediaIDs</h3>
+
+<p>The media <code class="prettyprint">id</code> of <code class="prettyprint">avatar</code> is currently reserved and used for storing a channels avatar. Uploading with the <code class="prettyprint">avatar</code> <code class="prettyprint">id</code> will replace the user&rsquo;s avatar.</p>
+
+<h2 id="media-metadata">Media Metadata</h2>
+<pre class="highlight shell"><span class="c">#POST https://demo.buddycloud.org/api/{channelID}/media/{mediaID}</span>
+
+curl https://demo.buddycloud.org/api/juliet@buddycloud.org/media/<span class="nv">$MEDIA_ID</span> <span class="se">\</span>
+     -X POST <span class="se">\</span>
+     -u juliet@buddycloud.org:romeo-forever <span class="se">\</span>
+     -d <span class="s1">'{ \
+            "filename": "A good name for that picture of Jules", \
+            "title": "A new title" \
+        }'</span> 
+
+</pre>
+<pre class="highlight javascript"><span class="err">#</span><span class="nx">Unsupported</span> <span class="nx">Method</span>
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>Metadata upates must include the <code class="prettyprint">id</code>. </p>
+
+<p>The possible metadata parameters are:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">height</code></td>
+<td>server-set</td>
+<td>Height of the uploaded image or video. This is calculated by the server and not user-editable.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">width</code></td>
+<td>server-set</td>
+<td>Width of the uploaded image or video. This is calculated by the server and not user-editable.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">author</code></td>
+<td>server-set</td>
+<td>the <code class="prettyprint">username</code> of the uploader</td>
+</tr>
+<tr>
+<td><code class="prettyprint">shaChecksum</code></td>
+<td>server-set</td>
+<td>SHA1 file checksum</td>
+</tr>
+<tr>
+<td><code class="prettyprint">uploadedDate</code></td>
+<td>server-set</td>
+<td>when the media was uploaded</td>
+</tr>
+<tr>
+<td><code class="prettyprint">lastUpdatedDate</code></td>
+<td>server-set</td>
+<td>when the media was updated / re-uploaded</td>
+</tr>
+<tr>
+<td><code class="prettyprint">mimeType</code></td>
+<td>required</td>
+<td>The file mimetype (e.g. <code class="prettyprint">image/jpeg</code>)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">fileName</code></td>
+<td>required</td>
+<td>The uploaded filename and extension.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">entityId</code></td>
+<td>required</td>
+<td>The channel where the media object was posted.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">title</code></td>
+<td>optional</td>
+<td>a short title of the object</td>
+</tr>
+<tr>
+<td><code class="prettyprint">description</code></td>
+<td>optional</td>
+<td>a longer form description of the object</td>
+</tr>
+</tbody></table>
+
+<h2 id="list-media">List Media</h2>
+<pre class="highlight shell"><span class="c">#GET https://demo.buddycloud.org/api/{channelID}/media</span>
+
+curl https://demo.buddycloud.org/api/juliet@buddycloud.org/media <span class="se">\</span>
+     -X GET
+
+<span class="c">#Response would be as follows:</span>
+
+200 OK
+Content-Type: application/json
+
+<span class="o">[</span>
+    <span class="o">{</span>
+        <span class="s2">"id"</span>: <span class="s2">"lETuJi8rPE4IfQrygN8rVtGx3"</span>,
+        <span class="s2">"fileName"</span>: <span class="s2">"photo.jpg"</span>,
+        <span class="s2">"author"</span>: <span class="s2">"juliet@buddycloud.org"</span>,
+        <span class="s2">"title"</span>: <span class="s2">"Juliet's pic"</span>,
+        <span class="s2">"mimeType"</span>: <span class="s2">"image/jpeg"</span>,
+        <span class="s2">"description"</span>: <span class="s2">"Juliet's picture 1595/06/01"</span>,
+        <span class="s2">"fileExtension"</span>: <span class="s2">"jpg"</span>,
+        <span class="s2">"shaChecksum"</span>: <span class="s2">"bc46e5fac2f1cbb607c8b253a5af33181f161562"</span>,
+        <span class="s2">"fileSize"</span>: <span class="s2">"60892"</span>,
+        <span class="s2">"height"</span>: <span class="s2">"312"</span>,
+        <span class="s2">"width"</span>: <span class="s2">"312"</span>,
+        <span class="s2">"entityId"</span>: <span class="s2">"capulet@topics.buddycloud.org"</span>
+    <span class="o">}</span>
+<span class="o">]</span>
+</pre>
+<pre class="highlight javascript"><span class="err">#</span><span class="nx">Unsupported</span> <span class="nx">Method</span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>This returns a list of all avaliable media objects in a channel.</p>
+
+<h2 id="fetch-media">Fetch Media</h2>
+<pre class="highlight shell"><span class="c">#Get media:</span>
+<span class="c">#GET https://demo.buddycloud.org/api/{channelID}/media/{mediaID}</span>
+
+curl https://demo.buddycloud.org/api/juliet@buddycloud.org/media/<span class="nv">$MEDIA_ID</span> <span class="se">\</span>
+     -X GET
+
+
+<span class="c">#Or get media preview:</span>
+<span class="c">#GET https://demo.buddycloud.org/api/{channelID}/media/{mediaID}?maxheight=:x&amp;maxwidth=:x</span>
+
+curl https://demo.buddycloud.org/api/juliet@buddycloud.org/media/<span class="nv">$MEDIA_ID</span>?maxheight<span class="o">=</span>150&amp;maxwidth<span class="o">=</span>150 <span class="se">\</span>
+     -X GET
+
+
+<span class="c">#Or get avatar:</span>
+<span class="c">#GET https://demo.buddycloud.org/api/{channelID}/avatar</span>
+
+curl https://demo.buddycloud.org/api/juliet@buddycloud.org/avatar <span class="se">\</span>
+     -X GET
+</pre>
+<pre class="highlight javascript"><span class="err">#</span><span class="nx">Unsupported</span> <span class="nx">Method</span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>This request returns a media file.</p>
+
+<p>The request can also be used to return an image preview or small user avatar sized files by adding the <code class="prettyprint">maxheight</code> and <code class="prettyprint">maxwidth</code> parameter to the request.</p>
+
+<p>If the media object belongs to a public channel, you don&rsquo;t need an Authorization header. Notice that if you&rsquo;re building a web frontend, embedding public media from the media-server means just creating an <code class="prettyprint">&lt;img&gt;</code> tag.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">maxheight</code></td>
+<td>optional</td>
+<td>Bound the ouput by a maximum height</td>
+</tr>
+<tr>
+<td><code class="prettyprint">maxwidth</code></td>
+<td>optional</td>
+<td>Bound the output by a maximum width</td>
+</tr>
+</tbody></table>
+
+<p>When both <code class="prettyprint">maxheight</code> and <code class="prettyprint">maxwidth</code> are requested the server will return a file smaller than or equal to both parameters.</p>
+
+<h2 id="post-media">Post Media</h2>
+<pre class="highlight shell"><span class="c">#POST https://demo.buddycloud.org/api/{channelID}/media</span>
+
+curl https://demo.buddycloud.org/api/capulet@topics.buddycloud.org/media <span class="se">\</span>
+     -X POST <span class="se">\</span>
+     -u juliet@buddycloud.org:romeo-forever <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+     -d <span class="s1">'{ \
+             "data": "media data in bytes", \
+             "content-type": "image/png", \
+             "filename": "prom.png", \
+             "title": "Juliet'</span>s prom pic<span class="s2">", </span><span class="se">\</span><span class="s2">
+             "</span>description<span class="s2">": "</span>Juliet<span class="s1">'s beautiful prom pic!" \
+         }'</span>
+
+<span class="c">#Response would be as follows:</span>
+
+201 Created
+Content-Type: application/json
+
+<span class="o">{</span>
+    <span class="s2">"id"</span>: <span class="s2">"lETuJi8rPE4IfQrygN6rVtGx3"</span>,
+    <span class="s2">"fileName"</span>: <span class="s2">"prom.png"</span>,
+    <span class="s2">"author"</span>: <span class="s2">"juliet@buddycloud.org"</span>,
+    <span class="s2">"title"</span>: <span class="s2">"Juliet's prom pic"</span>,
+    <span class="s2">"mimeType"</span>: <span class="s2">"image/png"</span>,
+    <span class="s2">"description"</span>: <span class="s2">"Juliet's beautiful prom pic!"</span>,
+    <span class="s2">"fileExtension"</span>: <span class="s2">"png"</span>,
+    <span class="s2">"shaChecksum"</span>: <span class="s2">"bc46e5fac2f1cbb607c8b253a5af33181f161562"</span>,
+    <span class="s2">"fileSize"</span>: 60892,
+    <span class="s2">"height"</span>: 312,
+    <span class="s2">"width"</span>: 312,
+    <span class="s2">"entityId"</span>: <span class="s2">"capulet@topics.buddycloud.org"</span>
+<span class="o">}</span>
+</pre>
+<pre class="highlight javascript"><span class="err">#</span><span class="nx">Unsupported</span> <span class="nx">Method</span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>This call enables media and media-metadata uploading and modification.</p>
+
+<p>Posting new media will return the object <code class="prettyprint">id</code> and metadata.</p>
+
+<p>Updating existing media with the same <code class="prettyprint">id</code> will overwrite the existing media content.</p>
+
+<h2 id="delete-media">Delete Media</h2>
+<pre class="highlight shell"><span class="c">#DELETE https://demo.buddycloud.org/api/{channelID}/media/{mediaID}</span>
+
+curl https://demo.buddycloud.org/api/juliet@buddycloud.org/media/<span class="nv">$MEDIA_ID</span> <span class="se">\</span>
+     -x DELETE <span class="se">\</span>
+     -u juliet@buddycloud.org:romeo-forever
+
+
+
+
+
+</pre>
+<pre class="highlight javascript"><span class="err">#</span><span class="nx">Unsupported</span> <span class="nx">Method</span>
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>Removes media from the channel.</p>
+
+<p>Deleting media will remove it from the requested channel. This does not remove it from other channels where it has been reshared.</p>
+
+          <h1 id="search">Search</h1>
+
+<p>You can search for authors, metadata, channels, and channel content.</p>
+
+<p>There are two search services on Buddycloud that are tuned for different needs,</p>
+
+<ul>
+<li><em>Local search:</em> finds content on your own Buddycloud domain.</li>
+<li><em>Buddycloud-wide search:</em> finds channels, posts and metadata from public channels using the <a href="https://github.com/buddycloud/channel-directory">Buddycloud crawler</a>.</li>
+</ul>
+
+<table><thead>
+<tr>
+<th>Search type</th>
+<th>Local search</th>
+<th>Buddycloud-wide search</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Channel content</td>
+<td>public and private channels</td>
+<td>public channels</td>
+</tr>
+<tr>
+<td>Post author</td>
+<td>yes</td>
+<td>no</td>
+</tr>
+<tr>
+<td>Channel metadata</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>Location</td>
+<td>no</td>
+<td>yes</td>
+</tr>
+</tbody></table>
+
+<h2 id="search-by-content">Search by Content</h2>
+<pre class="highlight shell"><span class="c">#POST https://demo.buddycloud.org/api/search?type=content&amp;q={queryKey}</span>
+
+curl https://demo.buddycloud.org/api/search?type<span class="o">=</span>content&amp;q<span class="o">=</span>Romeo <span class="se">\</span>
+     -x GET
+
+
+
+
+
+
+</pre>
+<pre class="highlight javascript">
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>New posts are crawled and should show up in search results after a few minutes. This will return public posts.</p>
+
+<h2 id="search-by-author">Search by Author</h2>
+<pre class="highlight shell"><span class="c">#Unsupported Method</span>
+
+
+
+
+
+
+
+
+
+</pre>
+<pre class="highlight javascript">
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>Query for a specific user&rsquo;s posts.</p>
+
+<h2 id="search-by-metadata">Search by Metadata</h2>
+<pre class="highlight shell"><span class="c">#POST https://demo.buddycloud.org/api/search?type=metadata?q={queryKey}</span>
+
+curl https://demo.buddycloud.org/api/search?type<span class="o">=</span>metadata&amp;q<span class="o">=</span>Romeo <span class="se">\</span>
+     -x GET
+
+
+
+
+
+
+</pre>
+<pre class="highlight javascript">
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>Query for channels by metadata.</p>
+
+<h2 id="search-by-location">Search by Location</h2>
+<pre class="highlight shell">
+
+
+
+
+
+
+
+
+
+</pre>
+<pre class="highlight javascript"><span class="err">#</span><span class="nx">Unsupported</span> <span class="nx">Method</span>
+
+
+
+
+
+
+
+
+
+</pre>
+
+<p>Query for channels by location. This search will return channels nearby to a latitude and longitude.</p>
+
+<p><aside>You can set a channel&rsquo;s latitude and longitude in the in the <a href="#update-metadata">metadata</a></aside></p>
+
+      </div>
+      <div class="dark-box">
+          <div id="lang-selector">
+                <a href="#" data-language-name="shell">REST API</a>
+                <a href="#" data-language-name="javascript">XMPP-FTW</a>
+          </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="theme/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="theme/vendor/buddycloud-styles/dist/js/buddycloud-styles.min.js"></script>
+    <script src="theme/vendor/slate/js/all.js" type="text/javascript"></script>
+
+      <script>
+        $(function() {
+          setupLanguages(["shell","javascript"]);
+        });
+      </script>
+
+  </body>
+</html>
